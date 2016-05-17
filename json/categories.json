@@ -1,5 +1,9 @@
 [
 	{
+		"id": "empty",
+		"nameToDisplay": ""
+	},
+	{
 		"id": "meat",
 		"nameToDisplay": "Viandes"
 	},
