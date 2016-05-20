@@ -14,7 +14,7 @@ app.controller('communauteController', function ($scope, $http, $cookies, NgCook
         //alert("ça marche dans recCtrnl!!"+data[0].name);
         $scope.recettes = data;
     }).catch(function () {
-        $scope.error = 'unable to get the poneys';
+        $scope.error = 'unable to get the data'; 
     });
 
     $scope.setUsersRecettes = function () {

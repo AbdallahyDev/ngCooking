@@ -11,6 +11,11 @@ app.controller('recettesNewController', function ($scope, $http, $cookies, NgCoo
     $scope.newRec.calories = 0;
     $scope.itemsIng = [];
     $scope.isValid;
+    NgCookingFactories.getCommunaute().then(function (data) {
+        $scope.communautes = data; 
+    }).catch(function () {
+        $scope.error = 'unable to get the recette list';
+    });
     //getting the categories list 
     NgCookingFactories.getCategories().then(function (data) {
         $scope.categories = data;
@@ -65,7 +70,7 @@ app.controller('recettesNewController', function ($scope, $http, $cookies, NgCoo
                         k++;
                     }
                 } else {
-                    $scope.itemsIng[k] = $scope.ingredients[j];
+                    $scope.itemsIng[k] = $scope.ingredients[j]; 
                     k++;
                 }
             }
@@ -89,5 +94,18 @@ app.controller('recettesNewController', function ($scope, $http, $cookies, NgCoo
         if (files[0] !== undefined) {
             $scope.newRec.picture = event.target.files[0].name;
         }
+    };
+    //add user to cookies the user in order to show his profil detail
+    $scope.addToCookie = function () {
+        var login = $cookies.get('login');
+        var id;
+        for (var i = 0; i < $scope.communautes.length;i++){
+            id = ($scope.communautes[i].email === login) ? $scope.communautes[i].id : -1;
+        }
+        if (id > 0) {
+            $cookies.remove('currentUserId');
+            $cookies.put('currentUserId', id);
+        } 
+        
     };
 });
